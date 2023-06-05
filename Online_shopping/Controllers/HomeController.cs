@@ -12,6 +12,7 @@ using System.Drawing;
 
 namespace soft.Controllers
 {
+    //HOME controller
     public class HomeController : Controller
     {
         private AppDbContext _db;
