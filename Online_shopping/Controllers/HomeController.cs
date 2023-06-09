@@ -12,7 +12,7 @@ using System.Drawing;
 
 namespace soft.Controllers
 {
-    //HOME controller
+    
     public class HomeController : Controller
     {
         private AppDbContext _db;
@@ -66,19 +66,21 @@ namespace soft.Controllers
         [HttpPost]
         public IActionResult Login(Login user)
         {
+            int AdminOrNot = 0;
             if (ModelState.IsValid)
             {
                 var datauser = _db.usersData.FirstOrDefault(U => U.Password==user.Password);
                 var dataAdmin = _db.Admins.FirstOrDefault(U => U.Password==user.Password);
                 if (datauser!=null&& datauser.Password==user.Password&& datauser.Username==user.UserName)
                 {
-                    TempData["AdminOrNot"]=0;
                     HttpContext.Session.SetString("Name", datauser.Name);
+                    HttpContext.Session.SetInt32("AdminOrNot", AdminOrNot);
                     return RedirectToAction("Index", "Home");
                 }
                 else if (dataAdmin!=null&& dataAdmin.Password==user.Password&& dataAdmin.UserName==user.UserName)
                 {
-                    TempData["AdminOrNot"]=1;
+                    AdminOrNot=1;
+                    HttpContext.Session.SetInt32("AdminOrNot", AdminOrNot);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -88,8 +90,8 @@ namespace soft.Controllers
                 
             }
             else { 
-            TempData["AdminOrNot"]=0;
-             }
+                HttpContext.Session.SetInt32("AdminOrNot", AdminOrNot);
+            }
             return View(user);
         }
         public IActionResult contact()
@@ -174,7 +176,7 @@ namespace soft.Controllers
                 cart.Add(newitems);
             }
             HttpContext.Session.Set("cart", cart);
-            return RedirectToAction("shopcart", "Home");
+            return RedirectToAction("shop", "Home");
         }
         public IActionResult RemoveFromCart(int id)
         {
@@ -183,7 +185,7 @@ namespace soft.Controllers
                 cart.Remove(item1);
           
             HttpContext.Session.Set("cart", cart);
-            return RedirectToAction("shopcart");
+            return RedirectToAction("shop");
         }
     }
 }
