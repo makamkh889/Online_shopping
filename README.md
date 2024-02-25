@@ -40,3 +40,11 @@ graphql
 ├── Styles/                # Contains CSS files for styling.
 ├── Data/                  # Contains SQL scripts for database setup.
 └── README.md              # Project README file.
+````
+## Video Description
+
+You can watch a video description of the project [here](https://drive.google.com/file/d/1oOlFGV3fkq6N8QHXgZjFgOudN6ju64uT/view?usp=sharing). This video provides an overview of the project's functionality and features.
+
+
+
+
